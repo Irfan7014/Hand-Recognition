@@ -23,6 +23,53 @@ import cv2
 import pyautogui as p
 import numpy as np 
 import math
+from tkinter import *
+
+keys = ['up', 'left', 'right', 'down', '0', '1', '2', '3', '4', '5', '6', '7',
+'8', '9', 'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'backspace',
+'ctrl', 'delete', 'end', 'enter', 'esc', 'escape', 'home', 'insert',
+'shift', 'space', 'tab']
+
+root = Tk()
+root.title("Hand Gesture Remote Key-Mapping Interface")
+root.geometry('640x320')
+
+finger2 = StringVar()
+finger3 = StringVar()
+finger4 = StringVar()
+finger5 = StringVar()
+
+title_label = Label(root, text="Hand Gesture Remote", font="Helvetica 16 bold italic", fg="Blue")
+credits_label = Label(root, text="Created by Irfan, Alan & Lance")
+finger2_label = Label(root, text="2 Fingers: ")
+finger3_label = Label(root, text="3 Fingers: ")
+finger4_label = Label(root, text="4 Fingers: ")
+finger5_label = Label(root, text="5 Fingers: ")
+finger2_dropdown = OptionMenu(root, finger2, *keys)
+finger3_dropdown = OptionMenu(root, finger3, *keys)
+finger4_dropdown = OptionMenu(root, finger4, *keys)
+finger5_dropdown = OptionMenu(root, finger5, *keys)
+ok_button = Button(root, text="Ok", command=root.quit)
+
+title_label.grid(row=0, column=0, columnspan=5)
+credits_label.grid(row=1, column=0, columnspan=4)
+finger2_label.grid(row=2, column=0)
+finger3_label.grid(row=3, column=0)
+finger4_label.grid(row=4, column=0)
+finger5_label.grid(row=5, column=0)
+finger2_dropdown.grid(row=2, column=1)
+finger3_dropdown.grid(row=3, column=1)
+finger4_dropdown.grid(row=4, column=1)
+finger5_dropdown.grid(row=5, column=1)
+ok_button.grid(row=6, column=2)
+
+root.mainloop()
+
+fing2 = finger2.get()
+fing3 = finger3.get()
+fing4 = finger4.get()
+fing5 = finger5.get()
 
 # Creating the capture instance for taking frames from webcam
 cap = cv2.VideoCapture(0,cv2.CAP_DSHOW)
@@ -130,12 +177,16 @@ while True:
             print('1 finger')
         elif count_defects == 1:
             print("2 fingers")
+            p.press(fing2)
         elif count_defects == 2:
             print('3 fingers')
+            p.press(fing3)
         elif count_defects == 3:
             print('4 fingers')
+            p.press(fing4)
         elif count_defects == 4:
             print('5 fingers')
+            p.press(fing5)
         else:
             pass
     except:
