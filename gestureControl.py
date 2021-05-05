@@ -62,6 +62,7 @@ finger2_dropdown.grid(row=2, column=1)
 finger3_dropdown.grid(row=3, column=1)
 finger4_dropdown.grid(row=4, column=1)
 finger5_dropdown.grid(row=5, column=1)
+ok_button.grid(row=6, column=2)
 
 root.mainloop()
 
