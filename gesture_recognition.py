@@ -23,6 +23,7 @@ import numpy as np
 import math
 import pyautogui as p
 from tkinter import *
+
 fing2=fing3=fing4=fing5=""
 root = Tk()
 root.title("Select An Application")
@@ -33,29 +34,32 @@ wasdGamesphoto = PhotoImage(file="./wasdkeys.png")
 powerpointphoto=PhotoImage(file="./powerpoint.png")
 vlcmediaphoto=PhotoImage(file="./vlcmedia.png")
 keymappingphoto=PhotoImage(file="./keymapping.png")
+
 def wasdMapping():
+    global fing2, fing3, fing4, fing5
     root.quit()
     fing2="w"
     fing3="d"
     fing4="s"
     fing5="a"
-    print("'{}','{}','{}','{}'".format(fing2,fing3,fing4,fing5))
+
 def powerpointMapping():
+    global fing2, fing3, fing4, fing5
     root.quit()
     fing2="up"
     fing3="down"
     fing4="left"
     fing5="right"
-    print("'{}','{}','{}','{}'".format(fing2,fing3,fing4,fing5))
+
 def vlcmediaMapping():
+    global fing2, fing3, fing4, fing5
     root.quit()
     fing2="space"
     fing3="up"
     fing4="down"
     fing5="right"
-    print("'{}','{}','{}','{}'".format(fing2,fing3,fing4,fing5))
+
 def customMapping():
-    root.quit()
     finger2 = StringVar()
     finger3 = StringVar()
     finger4 = StringVar()
@@ -65,7 +69,7 @@ def customMapping():
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'backspace',
     'ctrl', 'delete', 'end', 'enter', 'esc', 'escape', 'home', 'insert',
     'shift', 'space', 'tab']
-    root1 = Tk()
+    root1 = Toplevel()
     root1.title("Hand Gesture Remote Key-Mapping Interface")
     root1.geometry('640x320')
     title_label = Label(root1, text="Hand Gesture Remote", font="Helvetica 16 bold italic", fg="Blue")
@@ -88,20 +92,24 @@ def customMapping():
     finger3_dropdown.grid(row=3, column=1)
     finger4_dropdown.grid(row=4, column=1)
     finger5_dropdown.grid(row=5, column=1)
-    ok_button = Button(root1, text="Ok", command=root1.quit)
+    ok_button = Button(root1, text="Ok", command=lambda: root1_quit(finger2, finger3, finger4, finger5, root1))
     ok_button.grid(row=6, column=2)
-    fing2 = finger2.get()
-    fing3 = finger3.get()
-    fing4 = finger4.get()
-    fing5 = finger5.get()
-    root1.mainloop()
-    print("'{}','{}','{}','{}'".format(fing2,fing3,fing4,fing5))
+
+def root1_quit(f2, f3, f4, f5, root1):
+    global fing2, fing3, fing4, fing5
+    fing2 = f2.get()
+    fing3 = f3.get()
+    fing4 = f4.get()
+    fing5 = f5.get()
+    root1.quit()
+
 wasdGame=Button(root,command=wasdMapping,image=wasdGamesphoto,background="#000000").place(x=10,y=90)
 powerpoint=Button(root,command=powerpointMapping,image=powerpointphoto,background="#000000").place(x=380,y=70)
 vlcmedia=Button(root,command=vlcmediaMapping,image=vlcmediaphoto,background="#000000").place(x=383,y=380)
 keymapping=Button(root,command=customMapping,image=keymappingphoto,background="#000000").place(x=10,y=420)
 root.mainloop()
-root.resizable(False,False)
+
+print("'{}','{}','{}','{}'".format(fing2,fing3,fing4,fing5))
 
 
 cap = cv2.VideoCapture(0)
